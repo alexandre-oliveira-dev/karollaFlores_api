@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PaymentMethod {
+  pix
+  money
+  credit
+  debit
+}
+
 
 model Products{
   id String @id() @unique() @default(cuid()) 
@@ -25,4 +32,35 @@ model Products{
   
   @@index([id])
   @@map("Products")
+}
+
+
+
+model Users{
+  id String @id() @unique() @default(cuid()) 
+  createdAt DateTime @default(now())
+  name String
+  email String
+  phone String
+  address String
+  zipCode String
+
+  Orders Orders[]
+  @@index([id])
+}
+
+
+model Orders{
+  id String @id() @unique() @default(cuid()) 
+  createdAt DateTime @default(now())
+  // product ids
+  items String[]
+  total String 
+  isDeliveryed Boolean @default(false)
+  paymentMethod  PaymentMethod
+  userId String
+
+  Users Users @relation(fields: [userId],references: [id])
+
+  @@index([id])
 }

@@ -1,12 +1,10 @@
-import {Request, Response} from "express";
+import { Request, Response} from "express";
 import {
   ProductsCreateInput,
   ProductsFindManyArgs,
-  ProductsFindUniqueArgs,
-  ProductsUpdateArgs,
   ProductsUpdateInput,
 } from "./dto/agrs/args";
-import {KrlfProductsService} from "./krld-products-service.service";
+import {KrlfProductsService} from "./krlf-products-service.service";
 import {generatePageInfo} from "../common/paginaton";
 
 const service = new KrlfProductsService();
@@ -26,13 +24,27 @@ export class KrlfProductsResolver {
       pageInfo,
     });
   }
-  async findUnique(args: ProductsFindUniqueArgs) {
-    return await service.findUnique(args);
+
+  async findUnique(req: Request, res: Response) {
+    const {params} = req;
+    const productId = params?.id;
+    return res.status(200).json(await service.findUnique({id: productId}));
   }
-  async create(body: ProductsCreateInput[]) {
-    return await service.create(body);
+
+  async create(req: Request, res: Response) {
+    const body: ProductsCreateInput = req?.body;
+    const data = await service.create(body);
+    return res.status(200).json(data);
   }
-  async update(args: ProductsUpdateArgs, body: ProductsUpdateInput) {
-    return await service.update(body, args);
+
+  async update(req: Request, res: Response) {
+    const {id} = req?.params;
+    const body: ProductsUpdateInput = req?.body;
+    return res.status(200).json(await service.update(body, {id}));
+  }
+
+  async delete(req: Request, res: Response) {
+    const {id} = req?.params;
+    return res.status(200).json(await service.delete({id}));
   }
 }
