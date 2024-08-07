@@ -1,4 +1,4 @@
-import { Request, Response} from "express";
+import {Request, Response} from "express";
 import {
   ProductsCreateInput,
   ProductsFindManyArgs,
@@ -33,8 +33,12 @@ export class KrlfProductsResolver {
 
   async create(req: Request, res: Response) {
     const body: ProductsCreateInput = req?.body;
-    const data = await service.create(body);
-    return res.status(200).json(data);
+    let imgToBase64 = req.file?.buffer.toString("base64");
+
+    if (imgToBase64) {
+      const data = await service.create(body, imgToBase64);
+      return res.status(200).json(data);
+    }
   }
 
   async update(req: Request, res: Response) {
@@ -45,6 +49,7 @@ export class KrlfProductsResolver {
 
   async delete(req: Request, res: Response) {
     const {id} = req?.params;
+
     return res.status(200).json(await service.delete({id}));
   }
 }

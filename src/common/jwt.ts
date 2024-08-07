@@ -10,9 +10,15 @@ const getToken = async (email: string) => {
   tokenGenerated = token;
   return token;
 };
-const verifyToken = async () => {
-  const token = jwt.verify(tokenGenerated, `${sercret}`);
-  return token;
+const verifyToken = async (token: string) => {
+  try {
+    jwt.verify(token, `${sercret}`);
+    return true;
+  } catch (err: any) {
+    if (err.name === "TokenExpiredError") {
+      return false;
+    }
+  }
 };
 
 export {getToken, verifyToken};

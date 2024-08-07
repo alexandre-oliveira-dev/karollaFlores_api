@@ -14,7 +14,7 @@ datasource db {
 }
 
 
-enum OrderStatus{
+enum OrderStatus {
   deliveryed
   delivery
   waitingPayment
@@ -35,11 +35,21 @@ model Products{
   imgUrl String
   qtdStock Int
   createdAt DateTime @default(now())
+  categoryId Int
+
+  Categorys Categorys @relation(fields: [categoryId],references: [id])
   
   @@index([id])
   @@map("Products")
 }
 
+model Categorys {
+  id Int @id() @unique() @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  Products Products[]
+  @@index([id])
+}
 
 
 model Users{

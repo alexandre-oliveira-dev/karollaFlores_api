@@ -21,9 +21,19 @@ export class KrlfProductsService {
     });
   }
 
-  async create(body: ProductsCreateInput) {
-    return await prisma.products.createMany({
-      data: body?.data,
+  async create(body: ProductsCreateInput, imgBase64: string) {
+    const {price, qtdStock, title, type} = body;
+    return await prisma.products.create({
+      data: {
+        price,
+        title,
+        type,
+        qtdStock: Number(qtdStock),
+        imgUrl: imgBase64,
+      },
+      select: {
+        id: true,
+      },
     });
   }
 
@@ -32,11 +42,13 @@ export class KrlfProductsService {
       where: {
         id,
       },
-      data: body,
+      data: {
+        ...body,
+      },
     });
   }
 
   async delete({id}: Pick<ProductsModel, "id">) {
-    return await prisma.products.delete({where: {id}});
+    return await prisma.products.delete({where: {id}, select: {id: true}});
   }
 }
