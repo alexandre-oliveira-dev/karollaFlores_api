@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+enum OrderStatus{
+  deliveryed
+  delivery
+  waitingPayment
+}
 enum PaymentMethod {
   pix
   money
@@ -59,6 +65,7 @@ model Orders{
   isDeliveryed Boolean @default(false)
   paymentMethod  PaymentMethod
   userId String
+  status OrderStatus
 
   Users Users @relation(fields: [userId],references: [id])
 
