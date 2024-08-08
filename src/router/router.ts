@@ -3,6 +3,7 @@ import {Auth} from "../auth/auth.resolver";
 import {KrlfOrdersResolver} from "../krlfOrders/krlf-orders-resolver.resolver";
 import {KrlfProductsResolver} from "../krlfProducts/krlf-products-resolver.resolver";
 import {Router} from "express";
+import { KrlfCategoryResolver } from "../krlfCategorys/krlf-orders-resolver.resolver";
 
 const routes = Router();
 const upload = multer();
@@ -22,6 +23,12 @@ routes.get("/order/:id", new KrlfOrdersResolver().findUnique);
 routes.post("/orders", new KrlfOrdersResolver().create);
 routes.put("/orderUpdate/:id", new KrlfOrdersResolver().update);
 routes.delete("/orderDelete/:id", new KrlfOrdersResolver().delete);
+
+routes.get("/categorys", new KrlfCategoryResolver().findMany);
+routes.get("/category/:id", new KrlfCategoryResolver().findUnique);
+routes.post("/categorys", new KrlfCategoryResolver().create);
+routes.put("/categoryUpdate/:id", new KrlfCategoryResolver().update);
+routes.delete("/categoryDelete/:id", new KrlfCategoryResolver().delete);
 
 routes.post("/auth", new Auth().auth);
 routes.get("/authVerify/:token", new Auth().verifyToken);

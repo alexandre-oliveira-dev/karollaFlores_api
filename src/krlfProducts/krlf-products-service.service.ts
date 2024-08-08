@@ -22,14 +22,16 @@ export class KrlfProductsService {
   }
 
   async create(body: ProductsCreateInput, imgBase64: string) {
-    const {price, qtdStock, title, type} = body;
+    const {price, qtdStock, title, type, isNewsLister, categoryId} = body;
     return await prisma.products.create({
       data: {
         price,
         title,
         type,
+        isNewsLister,
         qtdStock: Number(qtdStock),
         imgUrl: imgBase64,
+        categoryId,
       },
       select: {
         id: true,

@@ -35,6 +35,7 @@ model Products{
   imgUrl String
   qtdStock Int
   createdAt DateTime @default(now())
+  isNewsLister Boolean @default(false)
   categoryId Int
 
   Categorys Categorys @relation(fields: [categoryId],references: [id])
@@ -60,7 +61,6 @@ model Users{
   phone String
   address String
   zipCode String
-
   Orders Orders[]
   @@index([id])
 }

@@ -4,7 +4,7 @@ export type ProductsFindManyArgs = Prisma.ProductsFindManyArgs;
 
 export type ProductsFindUniqueArgs = Prisma.ProductsFindUniqueArgs;
 
-export type ProductsCreateInput = Prisma.ProductsCreateInput;
+export type ProductsCreateInput = Prisma.ProductsUncheckedCreateInput;
 
 export type ProductsUpdateInput = Prisma.ProductsUpdateInput;
 
