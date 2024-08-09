@@ -35,14 +35,22 @@ export class KrlfCategoryResolver {
 
   async create(req: Request, res: Response) {
     const body: CategoryCreateInput = req?.body;
-    const data = await service.create(body);
-    return res.status(200).json(data);
+    try {
+      const data = await service.create(body);
+      return res.status(200).json(data);
+    } catch (err) {
+      return res.status(501).json(err);
+    }
   }
 
   async update(req: Request, res: Response) {
     const {id} = req?.params;
-    const body: CategoryUpdateInput = req?.body;
-    return res.status(200).json(await service.update(body, {id: Number(id)}));
+    try {
+      const body: CategoryUpdateInput = req?.body;
+      return res.status(200).json(await service.update(body, {id: Number(id)}));
+    } catch (err) {
+      return res.status(501).json(err);
+    }
   }
 
   async delete(req: Request, res: Response) {

@@ -49,8 +49,13 @@ export class KrlfProductsResolver {
 
   async update(req: Request, res: Response) {
     const {id} = req?.params;
-    const body: ProductsUpdateInput = req?.body;
-    return res.status(200).json(await service.update(body, {id: Number(id)}));
+    try {
+      const body: ProductsUpdateInput = req?.body;
+      console.log("🚀 ~ KrlfProductsResolver ~ update ~ body:", body)
+      return res.status(200).json(await service.update(body, {id: Number(id)}));
+    } catch (err) {
+      return res.status(501).json(err);
+    }
   }
 
   async delete(req: Request, res: Response) {

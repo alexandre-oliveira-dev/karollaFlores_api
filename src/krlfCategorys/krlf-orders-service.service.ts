@@ -24,6 +24,9 @@ export class KrlfCategoryService {
   async create(body: CategoryCreateInput) {
     return await prisma.categorys.create({
       data: body,
+      select: {
+        id: true,
+      },
     });
   }
 
@@ -33,10 +36,18 @@ export class KrlfCategoryService {
         id,
       },
       data: body,
+      select: {
+        id: true,
+      },
     });
   }
 
   async delete({id}: Pick<CategoryModel, "id">) {
-    return await prisma.categorys.delete({where: {id}});
+    return await prisma.categorys.delete({
+      where: {id},
+      select: {
+        id: true,
+      },
+    });
   }
 }

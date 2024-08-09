@@ -42,6 +42,6 @@ export class Auth {
     const {token} = req?.headers;
     const isValid = await verifyToken(token as string);
 
-    return res.json(isValid);
+    return res.json({tokenIsValid: isValid});
   }
 }

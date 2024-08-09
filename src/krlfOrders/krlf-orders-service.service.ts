@@ -24,6 +24,9 @@ export class KrlfOrdersService {
   async create(body: OrdersCreateInput) {
     return await prisma.orders.create({
       data: body?.data,
+      select: {
+        id: true,
+      },
     });
   }
 
@@ -33,10 +36,18 @@ export class KrlfOrdersService {
         id,
       },
       data: body,
+      select: {
+        id: true,
+      },
     });
   }
 
   async delete({id}: Pick<OrdersModel, "id">) {
-    return await prisma.orders.delete({where: {id}});
+    return await prisma.orders.delete({
+      where: {id},
+      select: {
+        id: true,
+      },
+    });
   }
 }

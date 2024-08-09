@@ -47,6 +47,9 @@ export class KrlfProductsService {
       data: {
         ...body,
       },
+      select: {
+        id: true,
+      },
     });
   }
 
