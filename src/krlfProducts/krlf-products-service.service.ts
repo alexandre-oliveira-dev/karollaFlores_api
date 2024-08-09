@@ -31,7 +31,7 @@ export class KrlfProductsService {
         isNewsLister,
         qtdStock: Number(qtdStock),
         imgUrl: imgBase64,
-        categoryId,
+        categoryId: Number(categoryId),
       },
       select: {
         id: true,

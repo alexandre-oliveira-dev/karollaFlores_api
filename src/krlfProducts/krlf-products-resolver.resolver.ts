@@ -28,28 +28,34 @@ export class KrlfProductsResolver {
   async findUnique(req: Request, res: Response) {
     const {params} = req;
     const productId = params?.id;
-    return res.status(200).json(await service.findUnique({id: productId}));
+    return res
+      .status(200)
+      .json(await service.findUnique({id: Number(productId)}));
   }
 
   async create(req: Request, res: Response) {
     const body: ProductsCreateInput = req?.body;
     let imgToBase64 = req.file?.buffer.toString("base64");
 
-    if (imgToBase64) {
-      const data = await service.create(body, imgToBase64);
-      return res.status(200).json(data);
+    try {
+      if (imgToBase64) {
+        const data = await service.create(body, imgToBase64);
+        return res.status(200).json(data);
+      }
+    } catch (err) {
+      return res.status(501).json(err);
     }
   }
 
   async update(req: Request, res: Response) {
     const {id} = req?.params;
     const body: ProductsUpdateInput = req?.body;
-    return res.status(200).json(await service.update(body, {id}));
+    return res.status(200).json(await service.update(body, {id: Number(id)}));
   }
 
   async delete(req: Request, res: Response) {
     const {id} = req?.params;
 
-    return res.status(200).json(await service.delete({id}));
+    return res.status(200).json(await service.delete({id: Number(id)}));
   }
 }

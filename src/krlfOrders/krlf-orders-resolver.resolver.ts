@@ -27,8 +27,10 @@ export class KrlfOrdersResolver {
 
   async findUnique(req: Request, res: Response) {
     const {params} = req;
-    const productId = params?.id;
-    return res.status(200).json(await service.findUnique({id: productId}));
+    const orderId = params?.id;
+    return res
+      .status(200)
+      .json(await service.findUnique({id: Number(orderId)}));
   }
 
   async create(req: Request, res: Response) {
@@ -40,11 +42,11 @@ export class KrlfOrdersResolver {
   async update(req: Request, res: Response) {
     const {id} = req?.params;
     const body: OrdersUpdateInput = req?.body;
-    return res.status(200).json(await service.update(body, {id}));
+    return res.status(200).json(await service.update(body, {id: Number(id)}));
   }
 
   async delete(req: Request, res: Response) {
     const {id} = req?.params;
-    return res.status(200).json(await service.delete({id}));
+    return res.status(200).json(await service.delete({id: Number(id)}));
   }
 }

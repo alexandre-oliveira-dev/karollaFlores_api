@@ -31,7 +31,8 @@ routes.put("/categoryUpdate/:id", new KrlfCategoryResolver().update);
 routes.delete("/categoryDelete/:id", new KrlfCategoryResolver().delete);
 
 routes.post("/auth", new Auth().auth);
-routes.get("/authVerify/:token", new Auth().verifyToken);
+routes.post("/createUser", new Auth().createUser);
+routes.get("/authVerify", new Auth().verifyToken);
 
 
 export default routes;

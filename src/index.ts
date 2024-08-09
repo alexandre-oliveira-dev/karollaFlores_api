@@ -1,6 +1,7 @@
 import express, {NextFunction, Request, Response} from "express";
 import routes from "./router/router";
 import cors from "cors";
+import "express-async-errors";
 
 export const service = express();
 export function App() {

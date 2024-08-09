@@ -28,7 +28,7 @@ enum PaymentMethod {
 
 
 model Products{
-  id String @id() @unique() @default(cuid()) 
+  id Int @id() @default(autoincrement())
   title String
   price String
   type String
@@ -67,7 +67,7 @@ model Users{
 
 
 model Orders{
-  id String @id() @unique() @default(cuid()) 
+  id Int @id() @unique() @default(autoincrement())
   createdAt DateTime @default(now())
   // product ids
   items String[]

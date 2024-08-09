@@ -1,4 +1,4 @@
 import { Prisma } from "@prisma/client";
 
 
-export type OrdersModel = Prisma.OrdersCreateInput
+export type OrdersModel = Prisma.OrdersUncheckedCreateInput;
