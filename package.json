@@ -2,7 +2,8 @@
   "version": "1.0",
   "name": "karolla_flores_api",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "vercel-build": "prisma generate && echo ola"
   },
   "dependencies": {
     "@prisma/client": "5.17.0",
