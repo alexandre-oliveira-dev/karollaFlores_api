@@ -1,3 +1,3 @@
-import {App} from "../src";
+import {service} from "../src";
 
-export default App();
+export default service;
