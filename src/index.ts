@@ -26,6 +26,6 @@ export function App() {
     return res.json({message: "ok"});
   });
 
-  service.listen(4000, () => console.log("api online"));
+  service.listen(process.env.PORT, () => console.log("api online"));
 }
 App();
