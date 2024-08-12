@@ -65,13 +65,13 @@ model Orders{
   id Int @id() @unique() @default(autoincrement())
   createdAt DateTime @default(now())
   // product ids
-  items String[]
+  items Int[]
   total String 
   isDeliveryed Boolean @default(false)
   paymentMethod  PaymentMethod
   userId String
   status OrderStatus
-
+  qtd Int
   Users Users @relation(fields: [userId],references: [id])
 
   @@index([id])
