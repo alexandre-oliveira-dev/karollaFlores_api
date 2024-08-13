@@ -31,6 +31,17 @@ export class KrlfProductsService {
       where: {
         id,
       },
+      select: {
+        id: true,
+        categoryId: true,
+        description: true,
+        isNewsLister: true,
+        price: true,
+        title: true,
+        Photos: true,
+        qtdStock: true,
+        type: true,
+      },
     });
   }
 

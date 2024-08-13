@@ -57,7 +57,7 @@ export class KrlfProductsResolver {
         await photosService.create(bodyPhotos);
         return res.status(200).json(data);
       }
-      return res.status(201).json({message: "Selecione no maximo 3 imagens."});
+      return res.status(201).json({message: "Selecione no máximo 3 imagens."});
     } catch (err) {
       return res.status(501).json({error: err});
     }
