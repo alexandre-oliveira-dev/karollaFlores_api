@@ -39,7 +39,8 @@ export class KrlfOrdersResolver {
       const data = await service.create(body);
       return res.status(200).json(data);
     } catch (err) {
-      return res.json(err);
+      console.log("🚀 ~ KrlfOrdersResolver ~ create ~ err:", err)
+      return res.json({error: err});
     }
   }
 

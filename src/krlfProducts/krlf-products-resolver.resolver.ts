@@ -43,7 +43,7 @@ export class KrlfProductsResolver {
         return res.status(200).json(data);
       }
     } catch (err) {
-      return res.status(501).json(err);
+      return res.status(501).json({error: err});
     }
   }
 
@@ -51,7 +51,7 @@ export class KrlfProductsResolver {
     const {id} = req?.params;
     try {
       const body: ProductsUpdateInput = req?.body;
-      console.log("🚀 ~ KrlfProductsResolver ~ update ~ body:", body)
+      console.log("🚀 ~ KrlfProductsResolver ~ update ~ body:", body);
       return res.status(200).json(await service.update(body, {id: Number(id)}));
     } catch (err) {
       return res.status(501).json(err);

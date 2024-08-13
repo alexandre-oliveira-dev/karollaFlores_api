@@ -22,8 +22,13 @@ export class KrlfOrdersService {
   }
 
   async create(body: OrdersCreateInput) {
+    console.log("🚀 ~ KrlfOrdersService ~ create ~ body:", body)
     return await prisma.orders.create({
-      data: body?.data,
+      data: {
+        ...body,
+        userId:body?.userId,
+        items: body?.items,
+      },
       select: {
         id: true,
       },

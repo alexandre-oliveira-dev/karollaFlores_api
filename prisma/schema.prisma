@@ -21,16 +21,21 @@ enum PaymentMethod {
   debit
 }
 
+enum ItemsType {
+id
+qtd
+}
 
 model Products{
   id Int @id() @default(autoincrement())
   title String
   price String
+  description String?
   type String
   imgUrl String
   qtdStock Int
   createdAt DateTime @default(now())
-  isNewsLister Boolean @default(false)
+  isNewsLister Boolean
   categoryId Int
 
   Categorys Categorys @relation(fields: [categoryId],references: [id])
@@ -49,7 +54,7 @@ model Categorys {
 
 
 model Users{
-  id String @id() @unique() @default(cuid()) 
+  id Int @id() @unique() @default(autoincrement()) 
   createdAt DateTime @default(now())
   name String
   email String
@@ -64,14 +69,13 @@ model Users{
 model Orders{
   id Int @id() @unique() @default(autoincrement())
   createdAt DateTime @default(now())
-  // product ids
-  items Int[]
+  // product ids and qtd =  [{id, qtd}]
+  items Json[]
   total String 
   isDeliveryed Boolean @default(false)
   paymentMethod  PaymentMethod
-  userId String
+  userId Int
   status OrderStatus
-  qtd Int
   Users Users @relation(fields: [userId],references: [id])
 
   @@index([id])

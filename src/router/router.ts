@@ -3,7 +3,7 @@ import {Auth} from "../auth/auth.resolver";
 import {KrlfOrdersResolver} from "../krlfOrders/krlf-orders-resolver.resolver";
 import {KrlfProductsResolver} from "../krlfProducts/krlf-products-resolver.resolver";
 import {Router} from "express";
-import {KrlfCategoryResolver} from "../krlfCategorys/krlf-orders-resolver.resolver";
+import { KrlfCategoryResolver } from "../krlfCategorys/krlf-orders-resolver.resolver";
 
 const routes = Router();
 const upload = multer();

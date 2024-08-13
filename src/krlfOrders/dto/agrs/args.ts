@@ -4,9 +4,14 @@ export type OrderFindMany = Prisma.OrdersFindManyArgs;
 
 export type OrdersFindUniqueArgs = Prisma.OrdersFindUniqueArgs;
 
-export type OrdersCreateInput = {
-  data: Prisma.OrdersCreateInput;
-};
+/* class Create implements Prisma.OrdersCreateInput{
+  items?: {
+    id: number,
+    qtd:number
+  };
+} */
+
+export type OrdersCreateInput = Prisma.OrdersUncheckedCreateInput;
 
 export type OrdersUpdateInput = Prisma.OrdersUpdateInput;
 
