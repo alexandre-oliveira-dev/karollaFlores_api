@@ -26,18 +26,25 @@ id
 qtd
 }
 
+model Photos{
+  id Int @id() @default(autoincrement())
+  prodId Int
+  imgBase64 String
+  Products Products @relation(fields: [prodId] ,references: [id], onDelete: Cascade)
+}
+
 model Products{
   id Int @id() @default(autoincrement())
   title String
   price String
   description String?
   type String
-  imgUrl String
   qtdStock Int
   createdAt DateTime @default(now())
   isNewsLister Boolean
   categoryId Int
 
+  Photos Photos[]
   Categorys Categorys @relation(fields: [categoryId],references: [id])
   
   @@index([id])

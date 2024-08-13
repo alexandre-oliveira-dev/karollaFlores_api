@@ -6,8 +6,12 @@ import {
 } from "./dto/agrs/args";
 import {KrlfProductsService} from "./krlf-products-service.service";
 import {generatePageInfo} from "../common/paginaton";
+import {Prisma, PrismaClient} from "@prisma/client";
+import {KrlfPhotos} from "../krlfPhotos/krlfPhotos.service";
 
 const service = new KrlfProductsService();
+
+const photosService = new KrlfPhotos();
 
 export class KrlfProductsResolver {
   async findMany(req: Request, res: Response) {
@@ -35,13 +39,25 @@ export class KrlfProductsResolver {
 
   async create(req: Request, res: Response) {
     const body: ProductsCreateInput = req?.body;
-    let imgToBase64 = req.file?.buffer.toString("base64");
+    // @ts-ignore
+    const imgToBase64: string[] = req.files?.map((value: Express.Multer.File) =>
+      value.buffer.toString("base64")
+    );
 
     try {
-      if (imgToBase64) {
-        const data = await service.create(body, imgToBase64);
+      if (imgToBase64.length > 0 && imgToBase64.length < 4) {
+        const data = await service.create(body);
+        const bodyPhotos = imgToBase64.map(item => {
+          return {
+            prodId: data?.id,
+            imgBase64: item,
+          };
+        });
+
+        await photosService.create(bodyPhotos);
         return res.status(200).json(data);
       }
+      return res.status(201).json({message: "Selecione no maximo 3 imagens."});
     } catch (err) {
       return res.status(501).json({error: err});
     }
@@ -51,7 +67,6 @@ export class KrlfProductsResolver {
     const {id} = req?.params;
     try {
       const body: ProductsUpdateInput = req?.body;
-      console.log("🚀 ~ KrlfProductsResolver ~ update ~ body:", body);
       return res.status(200).json(await service.update(body, {id: Number(id)}));
     } catch (err) {
       return res.status(501).json(err);

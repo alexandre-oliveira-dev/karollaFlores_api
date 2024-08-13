@@ -12,7 +12,7 @@ routes.get("/products", new KrlfProductsResolver().findMany);
 routes.get("/product/:id", new KrlfProductsResolver().findUnique);
 routes.post(
   "/products",
-  upload.single("file"),
+  upload.array("file"),
   new KrlfProductsResolver().create
 );
 routes.put("/productUpdate/:id", new KrlfProductsResolver().update);

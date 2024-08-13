@@ -10,7 +10,20 @@ const prisma = new PrismaClient();
 
 export class KrlfProductsService {
   async findMany(args?: ProductsFindManyArgs) {
-    return await prisma.products.findMany(args);
+    return await prisma.products.findMany({
+      ...args,
+      select: {
+        id: true,
+        categoryId: true,
+        description: true,
+        isNewsLister: true,
+        price: true,
+        title: true,
+        Photos: true,
+        qtdStock: true,
+        type: true,
+      },
+    });
   }
 
   async findUnique({id}: Pick<ProductsModel, "id">) {
@@ -21,7 +34,7 @@ export class KrlfProductsService {
     });
   }
 
-  async create(body: ProductsCreateInput, imgBase64: string) {
+  async create(body: ProductsCreateInput) {
     const {
       price,
       qtdStock,
@@ -39,7 +52,6 @@ export class KrlfProductsService {
         isNewsLister: Boolean(isNewsLister),
         description,
         qtdStock: Number(qtdStock),
-        imgUrl: imgBase64,
         categoryId: Number(categoryId),
       },
       select: {
