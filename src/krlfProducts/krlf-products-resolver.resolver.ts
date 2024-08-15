@@ -15,15 +15,15 @@ const photosService = new KrlfPhotos();
 
 export class KrlfProductsResolver {
   async findMany(req: Request, res: Response) {
-    const {query} = req;
-    const args: ProductsFindManyArgs = query;
+    const {body} = req;
+    const args: ProductsFindManyArgs = body;
     const response = await service.findMany(args);
     const pageInfo = generatePageInfo(
       Number(args?.take),
       Number(args?.skip),
       response.length
     );
-    return res.json({
+    return res.status(200).json({
       response,
       pageInfo,
     });

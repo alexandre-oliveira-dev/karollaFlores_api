@@ -11,7 +11,9 @@ const prisma = new PrismaClient();
 export class KrlfProductsService {
   async findMany(args?: ProductsFindManyArgs) {
     return await prisma.products.findMany({
-      ...args,
+      where: args?.where ? args.where : undefined,
+      skip: args?.skip ? args.skip : undefined,
+      take: args?.take ? args.take : undefined,
       select: {
         id: true,
         categoryId: true,
